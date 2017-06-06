@@ -10,11 +10,11 @@ function paramsToString(params, mandatoryflag) {
   var data = '';
   var tempKeys = Object.keys(params);
   tempKeys.forEach(function (key) {
--	var n = params[key].includes("REFUND");	
+	var n = params[key].includes("REFUND");	
 	
- -	var m = params[key].includes("|");			
- -		if(n == false || m == false)		
- -		{		
+ 	var m = params[key].includes("|");			
+ 		if(n == false || m == false)		
+ 		{		
     if (key !== 'CHECKSUMHASH' ) {
       if (params[key] === 'null') params[key] = '';
       if (!mandatoryflag || mandatoryParams.indexOf(key) !== -1) {

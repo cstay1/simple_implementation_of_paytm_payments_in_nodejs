@@ -30,7 +30,7 @@ var paytm_checksum = require('./paytm/checksum');
 var querystring = require('querystring');
 
 app.use('/pptm', (req, res) => {
-	console.log(request.body);
+	console.log(req.body);
 	var paramarray = {};
 	paramarray['MID'] = paytm_config.MID; //Provided by Paytm
 	paramarray['ORDER_ID'] = req.body.ORDER_ID; //unique OrderId for every request

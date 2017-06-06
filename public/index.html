@@ -6,47 +6,83 @@
 </head>
 <body>
 
-<form action="#" id="login-form">
-	<Button onClick="SubmitForm()">Pay with Paytm</Button>
-</form>
-<form action="https://pguat.paytm.com/oltp-web/processTransaction" method="POST" style="display: none" id="txForm">
-	<input type="text" name="REQUEST_TYPE" value="DEFAULT">
-	<input type="text" name="MID" id="MID">
-	<input type="text" name="ORDER_ID" id="ORDER_ID">
-	<input type="text" name="CUSTID" id="CUSTID">
-	<input type="text" name="TXN_AMOUNT" id="TXN_AMOUNT">
-	<input type="text" name="CHANNEL_ID" id="CHANNEL_ID">
-	<input type="text" name="INDUSTRY_TYPE_ID" id="INDUSTRY_TYPE_ID">
-	<input type="text" name="WEBSITE" id="WEBSITE">
-	<input type="text" name="CHECKSUMHASH" id="CHECKSUMHASH">	
+<form action="https://pguat.paytm.com/oltp-web/processTransaction" method="post" id="paymentForm">
+<table>
+	<tr>
+		<td><label for="">REQUEST_TYPE</label></td>
+		<td><input type="text" name="REQUEST_TYPE" value="DEFAULT"></td>
+	</tr>
+	<tr>
+		<td><label for="">MID</label></td>
+		<td><input type="text" name="MID" value="cstayS55564578512039"></td>
+	</tr>
+	<tr>
+		<td><label for="">ORDER_ID</label></td>
+		<td><input type="text" name="ORDER_ID" value="ORD001"></td>
+	</tr>
+	<tr>
+		<td><label for="">CUST_ID</label></td>
+		<td><input type="text" name="CUST_ID" value="CUST001"></td>
+	</tr>
+	<tr>
+		<td><label for="">TXN_AMOUNT</label></td>
+		<td><input type="text" name="TXN_AMOUNT" value="1.00"></td>
+	</tr>
+	<tr>
+		<td><label for="">CHANNEL_ID</label></td>
+		<td><input type="text" name="CHANNEL_ID" value="WAP"></td>
+	</tr>
+	<tr>
+		<td><label for="">INDUSTRY_TYPE_ID</label></td>
+		<td><input type="text" name="INDUSTRY_TYPE_ID" value="Retail"></td>
+	</tr>
+	<tr>
+		<td><label for="">WEBSITE</label></td>
+		<td><input type="text" name="WEBSITE" value="https://datapacks.in"></td>
+	</tr>
+	<tr>
+		<td><label for="">CHECKSUMHASH</label></td>
+		<td><input type="text" name="CHECKSUMHASH"></td>
+	</tr>
+	<tr>
+		<td><label for="">MOBILE_NO</label></td>
+		<td><input type="text" name="MOBILE_NO" value="8295131572"></td>
+	</tr>
+	<tr>
+		<td><label for="">EMAIL</label></td>
+		<td><input type="text" name="EMAIL" value="prashantdawar.2008@gmail.com"></td>
+	</tr>
+	<tr>
+		<td><input type="button" value="submit" onClick="SubmitForm(); return false;"></td>
+	</tr>		
+</table>
 </form>
 <script>
-	function SubmitForm() {
-		fetch("/ppt", {
-			method: "POST",			
+	function SubmitForm(){
+		var form = new FormData(document.getElementById("paymentForm"));
+		var formBody = [];
+		for ( var key of form.keys()){
+			var encodedKey = encodeURIComponent(key);
+			var encodedValue = encodeURIComponent(form.get(key));
+			formBody.push(encodedKey + "=" + encodedValue);
+		}
+		formBody = formBody.join("&");
+		// fetch("http://localhost:8080/ppum", {
+		fetch("https://datapacks.in/ppum", {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'					
+			},
+			body: formBody
 		})
 		.then(res => res.json())
 		.then(data => {
 			console.log(data);
-			document.getElementById('MID').value=data.MID;
-			document.getElementById('ORDER_ID').value=data.ORDER_ID;
-			document.getElementById("CUSTID").value=data.CUST_ID;
-			document.getElementById("TXN_AMOUNT").value=data.TXN_AMOUNT;
-			document.getElementById("CHANNEL_ID").value=data.CHANNEL_ID;
-			document.getElementById("INDUSTRY_TYPE_ID").value=data.INDUSTRY_TYPE_ID;
-			document.getElementById("WEBSITE").value=data.WEBSITE;
-			document.getElementById("CHECKSUMHASH").value=data.CHECKSUMHASH;
-			console.log(document.getElementById("CHECKSUMHASH").value);
-			// document.getElementById('txForm').submit();
-			document.getElementById('txForm').submit();
-		})
-		.then(() => {
-			// console.log(document.getElementById('txForm'));
-			// console.log(document.getElementById("CHECKSUMHASH").value);
-			// document.getElementById('txForm').submit();
-		})
-		.catch(err => console.log(err) );
+			// document.getElementById("CHECKSUMHASH").value = data.hash;
+			// document.getElementById("paymentForm").submit();
+		});
 	}
+	
 </script>
 </body>
 </html>

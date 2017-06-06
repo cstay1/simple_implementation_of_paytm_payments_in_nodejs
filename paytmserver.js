@@ -46,7 +46,7 @@ app.use('/pptm', (req, res) => {
 		
 		paytm_checksum.genchecksum(paramarray, paytm_config.MERCHANT_KEY, function (err, response) {
 			res.writeHead(200, {'Content-type' : 'text/json','Cache-Control': 'no-cache'});
-			res.write(JSON.stringify(res));
+			res.write(JSON.stringify(response));
 			res.end();
 		});
 });

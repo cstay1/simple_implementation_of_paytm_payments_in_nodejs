@@ -103,9 +103,9 @@ function paramsToStringrefund(params, mandatoryflag) {
   var data = '';
   var tempKeys = Object.keys(params);
   tempKeys.forEach(function (key) {
- -	var m = params[key].includes("|");			
- -		if(m == false)		
- -		{		
+ 	var m = params[key].includes("|");			
+ 		if(m == false)		
+ 		{		
     if (key !== 'CHECKSUMHASH' ) {
       if (params[key] === 'null') params[key] = '';
       if (!mandatoryflag || mandatoryParams.indexOf(key) !== -1) {

@@ -29,7 +29,7 @@ var paytm_config = require('./paytm/paytm_config').paytm_config;
 var paytm_checksum = require('./paytm/checksum');
 var querystring = require('querystring');
 
-app.use('/ppt', (request, response) => {
+app.use('/pptm', (request, response) => {
 	console.log(request.body);
 	var paramarray = {};
 	paramarray['MID'] = paytm_config.MID; //Provided by Paytm

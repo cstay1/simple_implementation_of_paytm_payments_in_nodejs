@@ -29,7 +29,7 @@ var paytm_config = require('./paytm/paytm_config').paytm_config;
 var paytm_checksum = require('./paytm/checksum');
 var querystring = require('querystring');
 
-app.use('/pptm', (request, response) => {
+app.use('/pptm', (req, res) => {
 	console.log(request.body);
 	var paramarray = {};
 	paramarray['MID'] = paytm_config.MID; //Provided by Paytm
@@ -44,10 +44,10 @@ app.use('/pptm', (request, response) => {
 	paramarray['MOBILE_NO'] = req.body.MOBILE_NO; // customer 10 digit mobile no.
 
 		
-		paytm_checksum.genchecksum(paramarray, paytm_config.MERCHANT_KEY, function (err, res) {
-			response.writeHead(200, {'Content-type' : 'text/json','Cache-Control': 'no-cache'});
-			response.write(JSON.stringify(res));
-			response.end();
+		paytm_checksum.genchecksum(paramarray, paytm_config.MERCHANT_KEY, function (err, response) {
+			res.writeHead(200, {'Content-type' : 'text/json','Cache-Control': 'no-cache'});
+			res.write(JSON.stringify(res));
+			res.end();
 		});
 });
 

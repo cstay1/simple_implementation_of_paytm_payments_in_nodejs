@@ -39,7 +39,7 @@ app.use('/pptm', (request, response) => {
 	paramarray['CHANNEL_ID'] = req.body.CHANNEL_ID; //Provided by Paytm
 	paramarray['TXN_AMOUNT'] = req.body.TXN_AMOUNT; // transaction amount
 	paramarray['WEBSITE'] = paytm_config.WEBSITE; //Provided by Paytm
-	paramarray['CALLBACK_URL'] = 'https://pguat.paytm.com/paytmchecksum/paytmCallback.jsp';//Provided by Paytm
+	paramarray['CALLBACK_URL'] = req.body.CALLBACK_URL;//Provided by Paytm
 	paramarray['EMAIL'] = req.body.EMAIL; // customer email id
 	paramarray['MOBILE_NO'] = req.body.MOBILE_NO; // customer 10 digit mobile no.
 

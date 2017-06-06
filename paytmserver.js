@@ -33,15 +33,15 @@ app.use('/pptm', (request, response) => {
 	console.log(request.body);
 	var paramarray = {};
 	paramarray['MID'] = paytm_config.MID; //Provided by Paytm
-	paramarray['ORDER_ID'] = 'ORDER00001'; //unique OrderId for every request
-	paramarray['CUST_ID'] = 'CUST0001';  // unique customer identifier 
+	paramarray['ORDER_ID'] = req.body.ORDER_ID; //unique OrderId for every request
+	paramarray['CUST_ID'] = req.body.CUST_ID;  // unique customer identifier 
 	paramarray['INDUSTRY_TYPE_ID'] = paytm_config.INDUSTRY_TYPE_ID; //Provided by Paytm
-	paramarray['CHANNEL_ID'] = 'WEB'; //Provided by Paytm
-	paramarray['TXN_AMOUNT'] = '1.00'; // transaction amount
+	paramarray['CHANNEL_ID'] = req.body.CHANNEL_ID; //Provided by Paytm
+	paramarray['TXN_AMOUNT'] = req.body.TXN_AMOUNT; // transaction amount
 	paramarray['WEBSITE'] = paytm_config.WEBSITE; //Provided by Paytm
 	paramarray['CALLBACK_URL'] = 'https://pguat.paytm.com/paytmchecksum/paytmCallback.jsp';//Provided by Paytm
-	paramarray['EMAIL'] = 'abc@gmail.com'; // customer email id
-	paramarray['MOBILE_NO'] = '9999999999'; // customer 10 digit mobile no.
+	paramarray['EMAIL'] = req.body.EMAIL; // customer email id
+	paramarray['MOBILE_NO'] = req.body.MOBILE_NO; // customer 10 digit mobile no.
 
 		
 		paytm_checksum.genchecksum(paramarray, paytm_config.MERCHANT_KEY, function (err, res) {

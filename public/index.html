@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Paytm Test Server</title>
+</head>
+<body>
+
+<form action="#" id="login-form">
+	<Button onClick="SubmitForm()">Pay with Paytm</Button>
+</form>
+<form action="https://pguat.paytm.com/oltp-web/processTransaction" method="POST" style="display: none" id="txForm">
+	<input type="text" name="REQUEST_TYPE" value="DEFAULT">
+	<input type="text" name="MID" id="MID">
+	<input type="text" name="ORDER_ID" id="ORDER_ID">
+	<input type="text" name="CUSTID" id="CUSTID">
+	<input type="text" name="TXN_AMOUNT" id="TXN_AMOUNT">
+	<input type="text" name="CHANNEL_ID" id="CHANNEL_ID">
+	<input type="text" name="INDUSTRY_TYPE_ID" id="INDUSTRY_TYPE_ID">
+	<input type="text" name="WEBSITE" id="WEBSITE">
+	<input type="text" name="CHECKSUMHASH" id="CHECKSUMHASH">	
+</form>
+<script>
+	function SubmitForm() {
+		fetch("/ppt", {
+			method: "POST",			
+		})
+		.then(res => res.json())
+		.then(data => {
+			console.log(data);
+			document.getElementById('MID').value=data.MID;
+			document.getElementById('ORDER_ID').value=data.ORDER_ID;
+			document.getElementById("CUSTID").value=data.CUST_ID;
+			document.getElementById("TXN_AMOUNT").value=data.TXN_AMOUNT;
+			document.getElementById("CHANNEL_ID").value=data.CHANNEL_ID;
+			document.getElementById("INDUSTRY_TYPE_ID").value=data.INDUSTRY_TYPE_ID;
+			document.getElementById("WEBSITE").value=data.WEBSITE;
+			document.getElementById("CHECKSUMHASH").value=data.CHECKSUMHASH;
+			console.log(document.getElementById("CHECKSUMHASH").value);
+			// document.getElementById('txForm').submit();
+			document.getElementById('txForm').submit();
+		})
+		.then(() => {
+			// console.log(document.getElementById('txForm'));
+			// console.log(document.getElementById("CHECKSUMHASH").value);
+			// document.getElementById('txForm').submit();
+		})
+		.catch(err => console.log(err) );
+	}
+</script>
+</body>
+</html>
